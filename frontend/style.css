@@ -64,7 +64,7 @@ button {
 
 #recipeForm,
 #editRecipeForm {
-  margin-top: 20px;
+  margin: 50px;
   text-align: left;
 }
 
@@ -97,7 +97,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
+  background-color: #443627;
   padding: 10px;
 }
 
@@ -113,6 +113,7 @@ nav a:hover {
 
 body {
   background-color: #f2f2f2;
+  
 }
 
 h1 {
@@ -126,13 +127,16 @@ img {
   height: auto;
   display: block;
   margin: 0 auto;
+
 }
 .hero {
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 50px;
-  background: #ffe0b2;
+  background: #cc9861;
+  margin: 20PX;
+  border-radius: 5px;
 }
 
 .hero img {
@@ -141,7 +145,7 @@ img {
 }
 
 footer {
-  background: #ff5722;
+  background: #663603;
   color: white;
   padding: 10px;
   margin-top: 50px;
