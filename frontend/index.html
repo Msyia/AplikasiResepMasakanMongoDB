@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Resep</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" a>🍽️ Daftar Resep</a>
+      <div>
+        <a href="login.html" id="login-link">🔑 Login</a>
+        <a href="register.html" id="register-link">🔐 Registrasi</a>
+        <a id="logout-link">🚪 Keluar</a>
+      </div>
+    </nav>
+    <section class="hero">
+      <div class="hero-text">
+        <h2>Temukan & Bagikan Resep Favoritmu!</h2>
+        <p>
+          Jelajahi berbagai resep masakan dari seluruh dunia dan bagikan kreasi
+          masakanmu dengan komunitas.
+        </p>
+      </div>
+      <img src="images/makanan.jpg" alt="Gambar makanan lezat" />
+    </section>
+    <h1>🍽️ Daftar Resep Masakan</h1>
+    <a href="add-recipe.html" id="add-recipe-link">➕ Tambah Resep</a>
+
+    <div id="recipes"></div>
+    <footer>
+      <p>&copy; 2025 Resep Masakan. Semua Hak Dilindungi.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+      const addRecipeLink = document.getElementById("add-recipe-link");
+      if (localStorage.getItem("token")) {
+        addRecipeLink.style.display = "inline-block";
+      } else {
+        addRecipeLink.style.display = "none";
+      }
+    </script>
+  </body>
+</html>

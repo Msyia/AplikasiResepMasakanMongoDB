@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Resep</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" a>🍽️ Daftar Resep</a>
+      <div>
+        <a href="login.html" id="login-link">🔑 Login</a>
+        <a href="register.html" id="register-link">🔐 Registrasi</a>
+        <a id="logout-link">🚪 Keluar</a>
+      </div>
+    </nav>
+    <h1>✏️ Edit Resep</h1>
+    <a href="./index.html">🔙 Kembali ke Daftar Resep</a>
+
+    <form id="editRecipeForm">
+      <input type="text" id="edit-title" required />
+      <input type="text" id="edit-ingredients" required />
+      <textarea id="edit-instructions" required></textarea>
+      <input type="file" id="edit-image" />
+      <button type="submit">✅ Simpan Perubahan</button>
+    </form>
+
+    <script>
+      // Ambil data dari localStorage
+      document.getElementById("edit-title").value =
+        localStorage.getItem("editRecipeTitle");
+      document.getElementById("edit-ingredients").value = localStorage.getItem(
+        "editRecipeIngredients"
+      );
+      document.getElementById("edit-instructions").value = localStorage.getItem(
+        "editRecipeInstructions"
+      );
+
+      document
+        .getElementById("editRecipeForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = new FormData();
+          formData.append("title", document.getElementById("edit-title").value);
+          formData.append(
+            "ingredients",
+            document.getElementById("edit-ingredients").value
+          );
+          formData.append(
+            "instructions",
+            document.getElementById("edit-instructions").value
+          );
+          if (document.getElementById("edit-image").files.length > 0) {
+            formData.append(
+              "image",
+              document.getElementById("edit-image").files[0]
+            );
+          }
+          console.log(formData);
+
+          const response = await fetch(
+            `http://localhost:5000/recipes/${localStorage.getItem(
+              "editRecipeId"
+            )}`,
+            {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              body: formData,
+            }
+          );
+
+          if (response.ok) {
+            alert("Resep berhasil diperbarui!");
+            localStorage.removeItem("editRecipeId");
+            localStorage.removeItem("editRecipeTitle");
+            localStorage.removeItem("editRecipeIngredients");
+            localStorage.removeItem("editRecipeInstructions");
+            window.location.href = "index.html";
+          } else {
+            alert("Gagal memperbarui resep.");
+          }
+        });
+    </script>
+    <script src="auth.js"></script>
+  </body>
+</html>

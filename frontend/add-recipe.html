@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Resep</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" a>🍽️ Daftar Resep</a>
+      <div>
+        <a href="login.html" id="login-link">🔑 Login</a>
+        <a href="register.html" id="register-link">🔐 Registrasi</a>
+        <a id="logout-link">🚪 Keluar</a>
+      </div>
+    </nav>
+    <h1>Tambah Resep Baru</h1>
+    <a href="index.html">Kembali ke Daftar Resep</a>
+
+    <form id="recipeForm" enctype="multipart/form-data">
+      <input type="text" id="title" placeholder="Judul Resep" required />
+      <input
+        type="text"
+        id="ingredients"
+        placeholder="Bahan (pisahkan dengan koma)"
+        required
+      />
+      <textarea
+        id="instructions"
+        placeholder="Instruksi Memasak"
+        required
+      ></textarea>
+      <input type="file" id="image" accept="image/*" />
+      <button type="submit">✅ Simpan Resep</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("recipeForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formData = new FormData();
+          formData.append("title", document.getElementById("title").value);
+          formData.append(
+            "ingredients",
+            document.getElementById("ingredients").value
+          );
+          formData.append(
+            "instructions",
+            document.getElementById("instructions").value
+          );
+          formData.append("image", document.getElementById("image").files[0]);
+
+          const token = localStorage.getItem("token");
+          const response = await fetch("http://localhost:5000/recipes", {
+            method: "POST",
+            headers: { Authorization: `Bearer ${token}` },
+            body: formData,
+          });
+
+          if (response.ok) {
+            alert("Resep berhasil ditambahkan!");
+            window.location.href = "index.html";
+          } else {
+            alert("Gagal menambahkan resep.");
+          }
+        });
+    </script>
+    <script src="auth.js"></script>
+  </body>
+</html>
